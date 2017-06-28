@@ -1,5 +1,6 @@
 app-crypt
 dev-libs
+net-libs
 sec-policy
 sys-apps
 virtual
