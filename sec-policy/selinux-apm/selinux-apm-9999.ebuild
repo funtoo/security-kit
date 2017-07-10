@@ -3,33 +3,12 @@
 EAPI="6"
 
 IUSE=""
-MODS="acpi"
+MODS="apm"
 
 inherit selinux-policy-2
 
-DESCRIPTION="SELinux policy for acpi"
+DESCRIPTION="SELinux policy for apm"
 
 if [[ ${PV} != 9999* ]] ; then
 	KEYWORDS="~amd64 ~arm ~arm64 ~mips ~x86"
 fi
-
-pkg_postinst() {
-	# "apm" module got renamed to "acpi", must remove apm first
-	# the contexts are okay even tho the modules are not
-	# replaced in the same command (doesnt become unlabeled_t)
-	for i in ${POLICY_TYPES}; do
-		if semodule -s "${i}" -l | grep apm >/dev/null 2>&1; then
-			semodule -s "${i}" -r apm
-		fi
-	done
-	selinux-policy-2_pkg_postinst
-}
-
-pkg_postrm() {
-	for i in ${POLICY_TYPES}; do
-		if semodule -s "${i}" -l | grep apm >/dev/null 2>&1; then
-			semodule -s "${i}" -r apm
-		fi
-	done
-	selinux-policy-2_pkg_postrm
-}
