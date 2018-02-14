@@ -3,4 +3,5 @@ dev-libs
 net-libs
 sec-policy
 sys-apps
+sys-auth
 virtual
