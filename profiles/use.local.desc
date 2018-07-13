@@ -21,3 +21,4 @@ sec-policy/selinux-base-policy:unconfined - Enable support for the unconfined SE
 sys-apps/policycoreutils:audit - Enable support for sys-process/audit and use the audit_* functions (like audit_getuid instead of getuid())
 sys-apps/selinux-python:audit - Enable support for sys-process/audit and use the audit_* functions (like audit_getuid instead of getuid())
 sys-libs/libselinux:pcre2 - Use dev-libs/libpcre2 for fcontext regexes
+sys-process/audit:gssapi - Enable GSSAPI support
