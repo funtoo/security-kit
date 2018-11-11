@@ -1,14 +1,12 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
-inherit versionator
-
-MY_PV="$(get_version_component_range 1-2)"
+MY_PV="$(ver_cut 1-2)"
 
 DESCRIPTION="A collection of profiles for the AppArmor application security system"
-HOMEPAGE="http://apparmor.net/"
+HOMEPAGE="https://gitlab.com/apparmor/apparmor/wikis/home"
 SRC_URI="https://launchpad.net/apparmor/${MY_PV}/${PV}/+download/apparmor-${PV}.tar.gz"
 
 LICENSE="GPL-2"
