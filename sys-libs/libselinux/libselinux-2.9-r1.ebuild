@@ -10,7 +10,7 @@ inherit multilib python-r1 toolchain-funcs multilib-minimal
 
 MY_P="${P//_/-}"
 SEPOL_VER="${PV}"
-MY_RELEASEDATE="20190125"
+MY_RELEASEDATE="20190315"
 
 DESCRIPTION="SELinux userland library"
 HOMEPAGE="https://github.com/SELinuxProject/selinux/wiki"
@@ -43,9 +43,12 @@ DEPEND="${RDEPEND}
 	virtual/pkgconfig
 	python? ( >=dev-lang/swig-2.0.9 )
 	ruby? ( >=dev-lang/swig-2.0.9 )"
+PATCHES=(
+	"${FILESDIR}/0001-libselinux-Use-Python-distutils-to-install-SELinux-p.patch"
+)
 
 src_prepare() {
-	eapply_user
+	default
 
 	multilib_copy_sources
 }

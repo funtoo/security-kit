@@ -1,17 +1,17 @@
 # Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI="6"
+EAPI=7
 
 inherit multilib toolchain-funcs linux-info multilib-minimal usr-ldscript
 
 DESCRIPTION="Linux Key Management Utilities"
-HOMEPAGE="https://people.redhat.com/dhowells/keyutils/"
-SRC_URI="https://people.redhat.com/dhowells/${PN}/${P}.tar.bz2"
+HOMEPAGE="https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/keyutils.git"
+SRC_URI="https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/keyutils.git/snapshot/${P}.tar.gz"
 
 LICENSE="GPL-2 LGPL-2.1"
-SLOT="0/1.8"
-KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~riscv ~s390 ~sh ~sparc ~x86 ~amd64-linux ~x86-linux"
+SLOT="0/1.9"
+KEYWORDS="alpha amd64 arm arm64 ~hppa ia64 ~m68k ~mips ppc ppc64 ~riscv ~s390 ~sh sparc x86 ~amd64-linux ~x86-linux"
 IUSE="static static-libs test"
 
 RDEPEND=""
@@ -20,7 +20,7 @@ DEPEND="!prefix? ( >=sys-kernel/linux-headers-2.6.11 )"
 PATCHES=(
 	"${FILESDIR}"/${PN}-1.6-endian-check-1.patch
 	"${FILESDIR}"/${PN}-1.6-makefile-fixup.patch
-	"${FILESDIR}"/${PN}-1.5.10-silence-rpm-check.patch #656446
+	"${FILESDIR}"/${PN}-1.6.1-silence-rpm-check.patch #656446
 	"${FILESDIR}"/${PN}-1.5.10-disable-tests.patch #519062 #522050
 	"${FILESDIR}"/${PN}-1.5.9-header-extern-c.patch
 )

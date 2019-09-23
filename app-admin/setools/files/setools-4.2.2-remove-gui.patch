@@ -1,5 +1,5 @@
 diff --git a/setup.py b/setup.py
-index e075a00..3f8f959 100644
+index ac8a876..84001a8 100644
 --- a/setup.py
 +++ b/setup.py
 @@ -134,10 +134,10 @@ setup(name='setools',
@@ -10,7 +10,7 @@ index e075a00..3f8f959 100644
 -      scripts=['apol', 'sediff', 'seinfo', 'seinfoflow', 'sesearch', 'sedta'],
 +      packages=['setools', 'setools.diff'],
 +      scripts=['sediff', 'seinfo', 'seinfoflow', 'sesearch', 'sedta'],
-       data_files=[(join(sys.prefix, 'share/man/man1'), glob.glob("man/*.1"))],
+       data_files=[('share/man/man1', glob.glob("man/*.1"))],
 -      package_data={'': ['*.ui', '*.qhc', '*.qch'], 'setools': ['perm_map']},
 +      package_data={'setools': ['perm_map']},
        ext_modules=cythonize(ext_py_mods, include_path=['setools/policyrep'],

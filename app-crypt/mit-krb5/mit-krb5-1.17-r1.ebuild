@@ -14,13 +14,13 @@ SRC_URI="https://web.mit.edu/kerberos/dist/krb5/${P_DIR}/${MY_P}.tar.gz"
 
 LICENSE="openafs-krb5-a BSD MIT OPENLDAP BSD-2 HPND BSD-4 ISC RSA CC-BY-SA-3.0 || ( BSD-2 GPL-2+ )"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86"
+KEYWORDS="alpha amd64 arm arm64 hppa ia64 ~mips ppc ppc64 ~s390 ~sh sparc x86"
 IUSE="cpu_flags_x86_aes doc +keyutils libressl lmdb nls openldap +pkinit selinux +threads test xinetd"
 
 # Test suite requires network access
 RESTRICT="test"
 
-CDEPEND="
+DEPEND="
 	!!app-crypt/heimdal
 	>=sys-libs/e2fsprogs-libs-1.42.9[${MULTILIB_USEDEP}]
 	|| (
@@ -28,7 +28,7 @@ CDEPEND="
 		>=dev-libs/libverto-0.2.5[libevent,${MULTILIB_USEDEP}]
 		>=dev-libs/libverto-0.2.5[tevent,${MULTILIB_USEDEP}]
 	)
-	keyutils? ( >=sys-apps/keyutils-1.5.8[${MULTILIB_USEDEP}] )
+	keyutils? ( >=sys-apps/keyutils-1.5.8:=[${MULTILIB_USEDEP}] )
 	lmdb? ( dev-db/lmdb )
 	nls? ( sys-devel/gettext[${MULTILIB_USEDEP}] )
 	openldap? ( >=net-nds/openldap-2.4.38-r1[${MULTILIB_USEDEP}] )
@@ -38,7 +38,7 @@ CDEPEND="
 	)
 	xinetd? ( sys-apps/xinetd )
 	"
-DEPEND="${CDEPEND}
+BDEPEND="
 	${PYTHON_DEPS}
 	virtual/yacc
 	cpu_flags_x86_aes? (
@@ -52,7 +52,7 @@ DEPEND="${CDEPEND}
 		dev-util/dejagnu
 		dev-util/cmocka
 	)"
-RDEPEND="${CDEPEND}
+RDEPEND="${DEPEND}
 	selinux? ( sec-policy/selinux-kerberos )"
 
 S=${WORKDIR}/${MY_P}/src
