@@ -1,4 +1,4 @@
-DEFINED_PHASES=compile install postinst prepare pretend setup unpack
+DEFINED_PHASES=compile install postinst prepare pretend unpack
 DEPEND==sec-policy/selinux-base-9999[systemd?] >=dev-vcs/git-1.8.2.1[curl]
 DESCRIPTION=SELinux policy for core modules
 EAPI=6
@@ -9,4 +9,4 @@ PDEPEND=unconfined? ( sec-policy/selinux-unconfined )
 RDEPEND==sec-policy/selinux-base-9999[systemd?]
 SLOT=0
 _eclasses_=git-r3	0d4635eeb5a96cd5315597a47eba25c9
-_md5_=8217ecccdcff546f287da55e51c9cb22
+_md5_=ee7983f502c6a25e8b5f2592d81336cc
