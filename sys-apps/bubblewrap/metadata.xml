@@ -2,11 +2,10 @@
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<maintainer type="project">
-		<email>selinux@gentoo.org</email>
-		<name>SELinux Team</name>
+		<email>gnome@gentoo.org</email>
+		<name>Gentoo GNOME Desktop</name>
 	</maintainer>
-	<longdescription>SELinux policy analysis tools.</longdescription>
 	<upstream>
-		<remote-id type="github">SELinuxProject/setools</remote-id>
+		<remote-id type="github">projectatomic/bubblewrap</remote-id>
 	</upstream>
 </pkgmetadata>

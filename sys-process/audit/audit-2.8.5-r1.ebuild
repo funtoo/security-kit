@@ -1,11 +1,11 @@
-# Copyright 1999-2018 Gentoo Authors
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI="6"
 
-PYTHON_COMPAT=( python{2_7,3_4,3_5,3_6} )
+PYTHON_COMPAT=( python{2_7,3_5,3_6,3_7} )
 
-inherit autotools multilib multilib-minimal toolchain-funcs preserve-libs python-r1 linux-info systemd
+inherit autotools multilib multilib-minimal toolchain-funcs preserve-libs python-r1 linux-info systemd usr-ldscript
 
 DESCRIPTION="Userspace utilities for storing and processing auditing records"
 HOMEPAGE="https://people.redhat.com/sgrubb/audit/"
@@ -13,8 +13,8 @@ SRC_URI="https://people.redhat.com/sgrubb/audit/${P}.tar.gz"
 
 LICENSE="GPL-2+ LGPL-2.1+"
 SLOT="0"
-KEYWORDS="alpha amd64 arm ~arm64 hppa ia64 ~mips ppc ppc64 s390 ~sh sparc x86"
-IUSE="gssapi ldap python static-libs"
+KEYWORDS="*"
+IUSE="apparmor go gssapi ldap python static-libs systemd"
 REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
 # Testcases are pretty useless as they are built for RedHat users/groups and kernels.
 RESTRICT="test"
@@ -22,6 +22,7 @@ RESTRICT="test"
 RDEPEND="gssapi? ( virtual/krb5 )
 	ldap? ( net-nds/openldap )
 	sys-libs/libcap-ng
+	go? ( dev-lang/go )
 	python? ( ${PYTHON_DEPS} )"
 DEPEND="${RDEPEND}
 	>=sys-kernel/linux-headers-2.6.34
@@ -35,8 +36,6 @@ pkg_setup() {
 }
 
 src_prepare() {
-	eapply_user
-
 	# Do not build GUI tools
 	sed -i \
 		-e '/AC_CONFIG_SUBDIRS.*system-config-audit/d' \
@@ -46,39 +45,45 @@ src_prepare() {
 		"${S}"/Makefile.am || die
 	rm -rf "${S}"/system-config-audit
 
-	if ! use ldap; then
-		sed -i \
-			-e '/^AC_OUTPUT/s,audisp/plugins/zos-remote/Makefile,,g' \
-			"${S}"/configure.ac || die
-		sed -i \
-			-e '/^SUBDIRS/s,zos-remote,,g' \
-			"${S}"/audisp/plugins/Makefile.am || die
-	fi
-
 	# Don't build static version of Python module.
 	eapply "${FILESDIR}"/${PN}-2.4.3-python.patch
 
 	# glibc/kernel upstreams suck with both defining ia64_fpreg
 	# This patch is a horribly workaround that is only valid as long as you
 	# don't need the OTHER definitions in fpu.h.
-	eapply "${FILESDIR}"/${PN}-2.1.3-ia64-compile-fix.patch
+	eapply "${FILESDIR}"/${PN}-2.8.4-ia64-compile-fix.patch
 
-	# there is no --without-golang conf option
-	sed -e "/^SUBDIRS =/s/ @gobind_dir@//" -i bindings/Makefile.am || die
+	eapply_user
+
+	# there is no --without-golang conf option -- and it does autodetection. Let's fix it
+	# so that if it's not specified, it doesn't get installed (like a toggle.)
+	# zos-remote -- same deal, but it defaults to ON.
+
+	sed \
+		-e "s/use_golang=auto/use_golang=no/g" \
+		-e "s/enable_zos_remote=yes/enable_zos_remote=no/g" \
+		-i configure.ac || die
 
 	# Regenerate autotooling
 	eautoreconf
+
 }
 
 multilib_src_configure() {
 	local ECONF_SOURCE=${S}
+	ECONF_EXTRAS="--disable-donkey"
+	[ $ARCH = "arm64" ] && ECONF_EXTRAS="$ECONF_EXTRAS --with-aarch64"
+	[ $ARCH = "arm" ] && ECONF_EXTRAS="$ECONF_EXTRAS --with-arm"
+	use apparmor && ECONF_EXTRAS="$ECONF_EXTRAS --enable-apparmor"
 	econf \
 		--sbindir="${EPREFIX}/sbin" \
 		$(use_enable gssapi gssapi-krb5) \
 		$(use_enable static-libs static) \
-		--enable-systemd \
+		$(use_enable ldap zos-remote) \
+		$(use_enable systemd ) \
 		--without-python \
-		--without-python3
+		--without-python3 \
+		$ECONF_EXTRAS
 
 	if multilib_is_native_abi; then
 		python_configure() {
@@ -178,7 +183,7 @@ multilib_src_install() {
 }
 
 multilib_src_install_all() {
-	dodoc AUTHORS ChangeLog README* THANKS TODO
+	dodoc AUTHORS ChangeLog README* THANKS
 	docinto contrib
 	dodoc contrib/{avc_snap,skeleton.c}
 	docinto contrib/plugin
@@ -188,8 +193,6 @@ multilib_src_install_all() {
 
 	newinitd "${FILESDIR}"/auditd-init.d-2.4.3 auditd
 	newconfd "${FILESDIR}"/auditd-conf.d-2.1.3 auditd
-
-	fperms 644 "$(systemd_get_systemunitdir)"/auditd.service # 556436
 
 	[ -f "${ED}"/sbin/audisp-remote ] && \
 	dodir /usr/sbin && \
