@@ -2,15 +2,15 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI="6"
-PYTHON_COMPAT=( python2_7 python3_5 python3_6 python3_7 )
-USE_RUBY="ruby24 ruby25"
+PYTHON_COMPAT=( python{3_5,3_6,3_7,3_8} )
+USE_RUBY="ruby24 ruby25 ruby26"
 
 # No, I am not calling ruby-ng
 inherit multilib python-r1 toolchain-funcs multilib-minimal
 
 MY_P="${P//_/-}"
 SEPOL_VER="${PV}"
-MY_RELEASEDATE="20190315"
+MY_RELEASEDATE="20191204"
 
 DESCRIPTION="SELinux userland library"
 HOMEPAGE="https://github.com/SELinuxProject/selinux/wiki"
@@ -21,13 +21,13 @@ if [[ ${PV} == 9999 ]] ; then
 	S="${WORKDIR}/${MY_P}/${PN}"
 else
 	SRC_URI="https://github.com/SELinuxProject/selinux/releases/download/${MY_RELEASEDATE}/${MY_P}.tar.gz"
-	KEYWORDS="amd64 ~arm ~arm64 ~mips x86"
+	KEYWORDS="~amd64 ~arm ~arm64 ~mips ~x86"
 	S="${WORKDIR}/${MY_P}"
 fi
 
 LICENSE="public-domain"
 SLOT="0"
-IUSE="pcre2 python ruby static-libs ruby_targets_ruby24 ruby_targets_ruby25"
+IUSE="pcre2 python ruby static-libs ruby_targets_ruby24 ruby_targets_ruby25 ruby_targets_ruby26"
 REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
 
 RDEPEND=">=sys-libs/libsepol-${SEPOL_VER}:=[${MULTILIB_USEDEP}]
@@ -37,12 +37,13 @@ RDEPEND=">=sys-libs/libsepol-${SEPOL_VER}:=[${MULTILIB_USEDEP}]
 	ruby? (
 		ruby_targets_ruby24? ( dev-lang/ruby:2.4 )
 		ruby_targets_ruby25? ( dev-lang/ruby:2.5 )
+		ruby_targets_ruby26? ( dev-lang/ruby:2.6 )
 	)
 	elibc_musl? ( sys-libs/fts-standalone )"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
-	python? ( <dev-lang/swig-4_pre )
-	ruby? ( <dev-lang/swig-4_pre )"
+	python? ( >=dev-lang/swig-2.0.9 )
+	ruby? ( >=dev-lang/swig-2.0.9 )"
 
 src_prepare() {
 	eapply_user

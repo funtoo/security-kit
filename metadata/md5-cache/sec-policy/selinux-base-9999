@@ -3,9 +3,9 @@ DEPEND=>=sys-apps/policycoreutils-2.8 virtual/udev sys-devel/m4 >=sys-apps/check
 DESCRIPTION=Gentoo base policy for SELinux
 EAPI=6
 HOMEPAGE=https://wiki.gentoo.org/wiki/Project:SELinux
-IUSE=doc +open_perms +peer_perms systemd +ubac +unconfined
+IUSE=doc +unknown-perms systemd +ubac +unconfined
 LICENSE=GPL-2
 RDEPEND=>=sys-apps/policycoreutils-2.8 virtual/udev
 SLOT=0
 _eclasses_=git-r3	0d4635eeb5a96cd5315597a47eba25c9
-_md5_=f50a35ee2788477f473a4b978c5c7504
+_md5_=08a7fa2666e06d8a2f924d3f7a33d735

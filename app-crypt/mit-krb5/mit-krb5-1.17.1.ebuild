@@ -1,26 +1,27 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
-PYTHON_COMPAT=( python2_7 )
-inherit autotools flag-o-matic multilib-minimal python-any-r1 systemd versionator
+PYTHON_COMPAT=( python3_{5,6,7} )
+inherit autotools flag-o-matic multilib-minimal python-any-r1 systemd
 
 MY_P="${P/mit-}"
-P_DIR=$(get_version_component_range 1-2)
+P_DIR=$(ver_cut 1-2)
 DESCRIPTION="MIT Kerberos V"
 HOMEPAGE="https://web.mit.edu/kerberos/www/"
 SRC_URI="https://web.mit.edu/kerberos/dist/krb5/${P_DIR}/${MY_P}.tar.gz"
 
 LICENSE="openafs-krb5-a BSD MIT OPENLDAP BSD-2 HPND BSD-4 ISC RSA CC-BY-SA-3.0 || ( BSD-2 GPL-2+ )"
 SLOT="0"
-KEYWORDS="alpha amd64 arm arm64 hppa ia64 ~mips ppc ppc64 s390 ~sh sparc x86"
-IUSE="doc +keyutils libressl nls openldap +pkinit selinux +threads test xinetd"
+KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86"
+IUSE="cpu_flags_x86_aes doc +keyutils libressl lmdb nls openldap +pkinit selinux +threads test xinetd"
+RESTRICT="!test? ( test )"
 
-# Test suite require network access
+# Test suite requires network access
 RESTRICT="test"
 
-CDEPEND="
+DEPEND="
 	!!app-crypt/heimdal
 	>=sys-libs/e2fsprogs-libs-1.42.9[${MULTILIB_USEDEP}]
 	|| (
@@ -28,43 +29,52 @@ CDEPEND="
 		>=dev-libs/libverto-0.2.5[libevent,${MULTILIB_USEDEP}]
 		>=dev-libs/libverto-0.2.5[tevent,${MULTILIB_USEDEP}]
 	)
-	keyutils? ( >=sys-apps/keyutils-1.5.8[${MULTILIB_USEDEP}] )
+	keyutils? ( >=sys-apps/keyutils-1.5.8:=[${MULTILIB_USEDEP}] )
+	lmdb? ( dev-db/lmdb )
 	nls? ( sys-devel/gettext[${MULTILIB_USEDEP}] )
 	openldap? ( >=net-nds/openldap-2.4.38-r1[${MULTILIB_USEDEP}] )
 	pkinit? (
 		!libressl? ( >=dev-libs/openssl-1.0.1h-r2:0=[${MULTILIB_USEDEP}] )
-		libressl? ( dev-libs/libressl[${MULTILIB_USEDEP}] )
+		libressl? ( dev-libs/libressl:0=[${MULTILIB_USEDEP}] )
 	)
-	xinetd? ( sys-apps/xinetd )"
-DEPEND="${CDEPEND}
+	xinetd? ( sys-apps/xinetd )
+	"
+BDEPEND="
 	${PYTHON_DEPS}
 	virtual/yacc
+	cpu_flags_x86_aes? (
+		amd64? ( dev-lang/yasm )
+		x86? ( dev-lang/yasm )
+	)
 	doc? ( virtual/latex-base )
 	test? (
 		${PYTHON_DEPS}
 		dev-lang/tcl:0
 		dev-util/dejagnu
+		dev-util/cmocka
 	)"
-RDEPEND="${CDEPEND}
+RDEPEND="${DEPEND}
 	selinux? ( sec-policy/selinux-kerberos )"
 
 S=${WORKDIR}/${MY_P}/src
+
+PATCHES=(
+	"${FILESDIR}/${PN}-1.12_warn_cflags.patch"
+	"${FILESDIR}/${PN}-config_LDFLAGS-r1.patch"
+	"${FILESDIR}/${PN}-1.16.3-libressl-r1.patch"
+	"${FILESDIR}/${PN}_dont_create_run.patch"
+)
 
 MULTILIB_CHOST_TOOLS=(
 	/usr/bin/krb5-config
 )
 
 src_prepare() {
-	eapply -p2 "${FILESDIR}/CVE-2018-5729-5730.patch"
-	eapply "${FILESDIR}/${PN}-1.12_warn_cflags.patch"
-	eapply -p2 "${FILESDIR}/${PN}-config_LDFLAGS.patch"
-	eapply "${FILESDIR}/${PN}-libressl-version-check.patch"
-
+	default
 	# Make sure we always use the system copies.
 	rm -rf util/{et,ss,verto}
 	sed -i 's:^[[:space:]]*util/verto$::' configure.in || die
 
-	eapply_user
 	eautoreconf
 }
 
@@ -86,6 +96,7 @@ multilib_src_configure() {
 		$(use_enable nls) \
 		$(use_enable pkinit) \
 		$(use_enable threads thread-support) \
+		$(use_with lmdb) \
 		--without-hesiod \
 		--enable-shared \
 		--with-system-et \
