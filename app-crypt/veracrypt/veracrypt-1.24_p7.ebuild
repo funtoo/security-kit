@@ -1,24 +1,25 @@
-# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
-inherit eutils linux-info pax-utils toolchain-funcs wxwidgets
+inherit eutils flag-o-matic linux-info pax-utils toolchain-funcs wxwidgets
+
+MY_PV="${PV/_p/-Update}"
 
 DESCRIPTION="Disk encryption with strong security based on TrueCrypt"
 HOMEPAGE="https://www.veracrypt.fr/en/Home.html"
-SRC_URI="https://github.com/${PN}/VeraCrypt/archive/VeraCrypt_${PV}.tar.gz"
+SRC_URI="https://github.com/${PN}/VeraCrypt/archive/VeraCrypt_${MY_PV}.tar.gz -> ${P}.tar.gz"
 
 # The modules not linked against in Linux include (but not limited to):
-#   libzip, chacha-xmm, chacha256, chachaRng, jitterentropy, rdrand, t1ha2
+#   libzip, chacha-xmm, chacha256, chachaRng, rdrand, t1ha2
 # Tested by actually removing the source files and performing a build
-# For this reason, We don't have to worry about their licenses
-LICENSE="Apache-2.0 truecrypt-3.0"
+# For this reason, we don't have to worry about their licenses
+LICENSE="Apache-2.0 BSD truecrypt-3.0"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="*"
 IUSE="+asm cpu_flags_x86_sse2 cpu_flags_x86_sse4_1 cpu_flags_x86_ssse3 doc X"
 RESTRICT="bindist mirror"
 
-WX_GTK_VER="3.0"
+WX_GTK_VER="3.0-gtk3"
 
 RDEPEND="
 	sys-fs/lvm2
@@ -33,7 +34,7 @@ DEPEND="
 	asm? ( dev-lang/yasm )
 "
 
-S="${WORKDIR}/VeraCrypt-VeraCrypt_${PV}/src"
+S="${WORKDIR}/VeraCrypt-VeraCrypt_${MY_PV}/src"
 
 pkg_setup() {
 	local CONFIG_CHECK="~BLK_DEV_DM ~CRYPTO ~CRYPTO_XTS ~DM_CRYPT ~FUSE_FS"
@@ -43,7 +44,7 @@ pkg_setup() {
 }
 
 src_prepare() {
-	eapply -p2 "${FILESDIR}"/${PN}-1.24-no-gui-fix.patch
+	sed -i -e 's/#include "Tcdefs.h"/#include "Tcdefs.h"\n#include <stddef.h>/' Common/Crypto.h
 	default
 }
 
@@ -62,7 +63,7 @@ src_compile() {
 		WX_CONFIG="${WX_CONFIG}"
 		$(usex X "" "NOGUI=1")
 		$(usex asm "" "NOASM=1")
-		$(usex cpu_flags_x86_sse2 "" "NOSSE2=1")
+		$(usex cpu_flags_x86_sse2 "$(is-flagq -mno-aes && echo NOSSE2=1 )"  "NOSSE2=1")
 		$(usex cpu_flags_x86_sse4_1 "SSE41=1" "")
 		$(usex cpu_flags_x86_ssse3 "SSSE3=1" "")
 	)
