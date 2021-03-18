@@ -20,7 +20,7 @@ S=${WORKDIR}/apparmor-${PV}/profiles
 src_install() {
 	if use minimal ; then
 		insinto /etc/apparmor.d
-		doins -r apparmor.d/{abstractions,tunables}
+		doins -r apparmor.d/{abi,abstractions,tunables}
 	else
 		default
 	fi
