@@ -1,4 +1,4 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -16,7 +16,8 @@ IUSE="libressl"
 
 DEPEND="!libressl? ( >=dev-libs/openssl-0.9.6:0 )
 	libressl? ( dev-libs/libressl )"
-RDEPEND="${DEPEND}"
+RDEPEND="${DEPEND}
+	!<net-vpn/openvpn-2.3"
 
 S="${WORKDIR}/${MY_P}"
 

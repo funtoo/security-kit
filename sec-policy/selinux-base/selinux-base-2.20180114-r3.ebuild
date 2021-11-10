@@ -72,7 +72,7 @@ src_configure() {
 
 	# Prepare initial configuration
 	cd "${S}/refpolicy" || die
-	emake conf
+	emake conf || die "Make conf failed"
 
 	# Setup the policies based on the types delivered by the end user.
 	# These types can be "targeted", "strict", "mcs" and "mls".
@@ -125,8 +125,11 @@ src_install() {
 	for i in ${POLICY_TYPES}; do
 		cd "${S}/${i}" || die
 
-		emake DESTDIR="${D}" install
-		emake DESTDIR="${D}" install-headers
+		emake DESTDIR="${D}" install \
+			|| die "${i} install failed."
+
+		emake DESTDIR="${D}" install-headers \
+			|| die "${i} headers install failed."
 
 		echo "run_init_t" > "${D}/etc/selinux/${i}/contexts/run_init_type" || die
 
