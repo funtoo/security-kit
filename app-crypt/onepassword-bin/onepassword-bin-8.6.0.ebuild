@@ -4,8 +4,8 @@ EAPI=7
 inherit desktop eutils pax-utils user xdg
 
 DESCRIPTION="Password keeper, password generator, family and business sharing, auditing, reporting, compliance"
-HOMEPAGE="https://releases.1password.com/linux/8.5/"
-SRC_URI="https://downloads.1password.com/linux/tar/stable/x86_64/1password-latest.tar.gz -> onepassword-bin-8.5.0.tar.gz"
+HOMEPAGE="https://releases.1password.com/linux/8.6/"
+SRC_URI="https://downloads.1password.com/linux/tar/stable/x86_64/1password-latest.tar.gz -> onepassword-bin-8.6.0.tar.gz"
 
 KEYWORDS="-* amd64"
 LICENSE="all-rights-reserved"
