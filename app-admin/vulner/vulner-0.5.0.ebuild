@@ -20,9 +20,11 @@ bumpalo-3.9.1
 bytecount-0.6.2
 bytes-1.1.0
 cc-1.0.73
+cfg-if-0.1.10
 cfg-if-1.0.0
 chrono-0.4.19
 clap-2.34.0
+confy-0.4.0
 console-0.15.0
 core-foundation-0.9.3
 core-foundation-sys-0.8.3
@@ -30,6 +32,8 @@ cpufeatures-0.2.1
 crc32fast-1.3.2
 crypto-common-0.1.3
 digest-0.10.3
+directories-2.0.2
+dirs-sys-0.3.6
 encode_unicode-0.3.6
 encoding_rs-0.8.30
 encoding_rs_io-0.1.7
@@ -58,7 +62,7 @@ grep-matcher-0.1.5
 grep-printer-0.1.6
 grep-regex-0.1.9
 grep-searcher-0.1.8
-h2-0.3.11
+h2-0.3.12
 hashbrown-0.11.2
 heck-0.3.3
 hermit-abi-0.1.19
@@ -75,13 +79,13 @@ indicatif-0.16.2
 indoc-0.3.6
 indoc-impl-0.3.6
 instant-0.1.12
-ipnet-2.3.1
+ipnet-2.4.0
 iso8601-0.4.1
 itoa-1.0.1
 js-sys-0.3.56
 jsonschema-0.14.0
 lazy_static-1.4.0
-libc-0.2.119
+libc-0.2.120
 lock_api-0.4.6
 log-0.4.14
 matches-0.1.9
@@ -90,7 +94,7 @@ memmap2-0.3.1
 mime-0.3.16
 minimal-lexical-0.2.1
 miniz_oxide-0.4.4
-mio-0.8.0
+mio-0.8.1
 miow-0.3.7
 native-tls-0.2.8
 nom-7.1.0
@@ -104,9 +108,9 @@ num-iter-0.1.42
 num-rational-0.2.4
 num-traits-0.2.14
 num_cpus-1.13.1
-num_threads-0.1.3
+num_threads-0.1.4
 number_prefix-0.4.0
-once_cell-1.9.0
+once_cell-1.10.0
 openssl-0.10.38
 openssl-probe-0.1.5
 openssl-sys-0.9.72
@@ -130,12 +134,13 @@ pyo3-macros-0.15.1
 pyo3-macros-backend-0.15.1
 pythonize-0.15.0
 quote-1.0.15
-redox_syscall-0.2.10
-regex-1.5.4
+redox_syscall-0.2.11
+redox_users-0.4.0
+regex-1.5.5
 regex-automata-0.1.10
 regex-syntax-0.6.25
 remove_dir_all-0.5.3
-reqwest-0.11.9
+reqwest-0.11.10
 ryu-1.0.9
 same-file-1.0.6
 schannel-0.1.19
@@ -154,9 +159,9 @@ socket2-0.4.4
 strsim-0.8.0
 structopt-0.3.26
 structopt-derive-0.4.18
-syn-1.0.86
+syn-1.0.87
 tempfile-3.3.0
-termcolor-1.1.2
+termcolor-1.1.3
 terminal_size-0.1.17
 textwrap-0.11.0
 thread_local-1.1.4
@@ -170,9 +175,10 @@ tokio-macros-1.7.0
 tokio-native-tls-0.3.0
 tokio-stream-0.1.8
 tokio-util-0.6.9
+toml-0.5.8
 tower-service-0.3.1
-tracing-0.1.31
-tracing-core-0.1.22
+tracing-0.1.32
+tracing-core-0.1.23
 try-lock-0.2.3
 typenum-1.15.0
 unicode-bidi-0.3.7
@@ -188,6 +194,7 @@ vec_map-0.8.2
 version_check-0.9.4
 want-0.3.0
 wasi-0.10.0+wasi-snapshot-preview1
+wasi-0.11.0+wasi-snapshot-preview1
 wasm-bindgen-0.2.79
 wasm-bindgen-backend-0.2.79
 wasm-bindgen-futures-0.4.29
@@ -205,14 +212,14 @@ windows_i686_gnu-0.32.0
 windows_i686_msvc-0.32.0
 windows_x86_64_gnu-0.32.0
 windows_x86_64_msvc-0.32.0
-winreg-0.7.0
+winreg-0.10.1
 "
 
 inherit cargo
 
 DESCRIPTION="Discover CVEs for packages installed by the portage"
 HOMEPAGE="https://github.com/mrl5/vulner"
-SRC_URI="https://github.com/mrl5/vulner/releases/download/v0.4.0/vulner-v0.4.0.tar.gz -> vulner-0.4.0.tar.gz
+SRC_URI="https://github.com/mrl5/vulner/releases/download/v0.5.0/vulner-v0.5.0.tar.gz -> vulner-0.5.0.tar.gz
 	$(cargo_crate_uris ${CRATES})"
 
 LICENSE="MPL-2.0"
