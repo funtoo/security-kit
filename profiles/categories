@@ -3,6 +3,7 @@ app-antivirus
 app-crypt
 app-forensics
 dev-libs
+mail-filter
 net-libs
 sec-policy
 sys-apps
