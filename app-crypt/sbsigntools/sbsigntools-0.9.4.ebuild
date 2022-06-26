@@ -1,11 +1,10 @@
-# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI="6"
+EAPI="7"
 
 MY_PN="${PN::-1}"
 
-inherit eutils autotools
+inherit autotools toolchain-funcs
 
 DESCRIPTION="Utilities for signing and verifying files for UEFI Secure Boot"
 HOMEPAGE="https://git.kernel.org/cgit/linux/kernel/git/jejb/sbsigntools.git/"
@@ -14,7 +13,7 @@ SRC_URI="https://git.kernel.org/pub/scm/linux/kernel/git/jejb/${PN}.git/snapshot
 
 LICENSE="GPL-3 LGPL-3 LGPL-2.1 CC0-1.0"
 SLOT="0"
-KEYWORDS="amd64 ~arm64 ~x86"
+KEYWORDS="*"
 IUSE=""
 
 RDEPEND="
@@ -27,7 +26,7 @@ DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 
 PATCHES=(
-	"${FILESDIR}"/${P}-openssl-1.1.0-compat.patch
+	"${FILESDIR}"/${PN}-0.9.4-no-werror.patch
 )
 
 src_prepare() {
@@ -39,6 +38,7 @@ src_prepare() {
 		amd64) iarch=x86_64 ;;
 		arm64) iarch=aarch64 ;;
 		ia64)  iarch=ia64 ;;
+		riscv) iarch=riscv64 ;;
 		x86)   iarch=ia32 ;;
 		*)     die "unsupported architecture: ${ARCH}" ;;
 	esac
