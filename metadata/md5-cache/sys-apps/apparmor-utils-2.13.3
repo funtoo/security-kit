@@ -1,13 +1,13 @@
 DEFINED_PHASES=compile configure install prepare test
-DEPEND=dev-lang/perl ~sys-libs/libapparmor-2.13.3 python_targets_python3_7? ( dev-lang/python:3.7 ) python_targets_python3_9? ( dev-lang/python:3.9 ) python_targets_python3_8? ( dev-lang/python:3.8 ) python_targets_python3_10? ( dev-lang/python:3.10 ) >=dev-lang/python-exec-2:=[python_targets_python3_7(-)?,python_targets_python3_9(-)?,python_targets_python3_8(-)?,python_targets_python3_10(-)?,-python_single_target_python3_7(-),-python_single_target_python3_9(-),-python_single_target_python3_8(-),-python_single_target_python3_10(-)] sys-devel/gettext dev-lang/perl:=
+DEPEND=dev-lang/perl ~sys-libs/libapparmor-2.13.3 python_targets_python3_10? ( dev-lang/python:3.10 ) python_targets_python3_7? ( dev-lang/python:3.7 ) python_targets_python3_9? ( dev-lang/python:3.9 ) python_targets_python3_8? ( dev-lang/python:3.8 ) >=dev-lang/python-exec-2:=[python_targets_python3_10(-)?,python_targets_python3_7(-)?,python_targets_python3_9(-)?,python_targets_python3_8(-)?,-python_single_target_python3_10(-),-python_single_target_python3_7(-),-python_single_target_python3_9(-),-python_single_target_python3_8(-)] sys-devel/gettext dev-lang/perl:=
 DESCRIPTION=Additional userspace utils to assist with AppArmor profile management
 EAPI=6
 HOMEPAGE=https://gitlab.com/apparmor/apparmor/wikis/home
-IUSE=python_targets_python3_7 python_targets_python3_9 python_targets_python3_8 python_targets_python3_10
+IUSE=python_targets_python3_10 python_targets_python3_7 python_targets_python3_9 python_targets_python3_8
 KEYWORDS=*
 LICENSE=GPL-2
-RDEPEND=dev-lang/perl ~sys-libs/libapparmor-2.13.3 python_targets_python3_7? ( dev-lang/python:3.7 ) python_targets_python3_9? ( dev-lang/python:3.9 ) python_targets_python3_8? ( dev-lang/python:3.8 ) python_targets_python3_10? ( dev-lang/python:3.10 ) >=dev-lang/python-exec-2:=[python_targets_python3_7(-)?,python_targets_python3_9(-)?,python_targets_python3_8(-)?,python_targets_python3_10(-)?,-python_single_target_python3_7(-),-python_single_target_python3_9(-),-python_single_target_python3_8(-),-python_single_target_python3_10(-)] ~sys-libs/libapparmor-2.13.3[perl,python] ~sys-apps/apparmor-2.13.3 dev-perl/Locale-gettext dev-perl/RPC-XML dev-perl/TermReadKey virtual/perl-Data-Dumper virtual/perl-Getopt-Long dev-lang/perl:=
-REQUIRED_USE=|| ( python_targets_python3_7 python_targets_python3_9 python_targets_python3_8 python_targets_python3_10 )
+RDEPEND=dev-lang/perl ~sys-libs/libapparmor-2.13.3 python_targets_python3_10? ( dev-lang/python:3.10 ) python_targets_python3_7? ( dev-lang/python:3.7 ) python_targets_python3_9? ( dev-lang/python:3.9 ) python_targets_python3_8? ( dev-lang/python:3.8 ) >=dev-lang/python-exec-2:=[python_targets_python3_10(-)?,python_targets_python3_7(-)?,python_targets_python3_9(-)?,python_targets_python3_8(-)?,-python_single_target_python3_10(-),-python_single_target_python3_7(-),-python_single_target_python3_9(-),-python_single_target_python3_8(-)] ~sys-libs/libapparmor-2.13.3[perl,python] ~sys-apps/apparmor-2.13.3 dev-perl/Locale-gettext dev-perl/RPC-XML dev-perl/TermReadKey virtual/perl-Data-Dumper virtual/perl-Getopt-Long dev-lang/perl:=
+REQUIRED_USE=|| ( python_targets_python3_10 python_targets_python3_7 python_targets_python3_9 python_targets_python3_8 )
 RESTRICT=test
 SLOT=0
 SRC_URI=https://launchpad.net/apparmor/2.13/2.13.3/+download/apparmor-2.13.3.tar.gz
