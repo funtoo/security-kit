@@ -1,6 +1,6 @@
 BDEPEND=|| ( dev-lang/python:3.8 dev-lang/python:3.9 dev-lang/python:3.7 dev-lang/python:3.10 ) >=app-portage/elt-patches-20170815 !<sys-devel/gettext-0.18.1.1-r3 || ( >=sys-devel/automake-1.16.1:1.16 >=sys-devel/automake-1.15.1:1.15 ) >=sys-devel/autoconf-2.69 >=sys-devel/libtool-2.4
 DEFINED_PHASES=configure install preinst prepare setup
-DEPEND=fuse? ( dev-libs/glib:2 sys-fs/fuse:0 ) gnutls? ( dev-libs/libtasn1:= >=net-libs/gnutls-3.4.0:=[tools,pkcs11] ) seccomp? ( sys-libs/libseccomp ) dev-libs/openssl:0= dev-libs/json-glib dev-libs/libtpms test? ( net-misc/socat dev-tcltk/expect )
+DEPEND=fuse? ( dev-libs/glib:2 sys-fs/fuse:0 ) gnutls? ( dev-libs/libtasn1:= >=net-libs/gnutls-3.4.0:=[tools,pkcs11] ) seccomp? ( sys-libs/libseccomp ) dev-libs/openssl:0= dev-libs/json-glib dev-libs/libtpms test? ( net-misc/socat dev-tcltk/expect ) sys-apps/shadow
 DESCRIPTION=Libtpms-based TPM emulator
 EAPI=7
 HOMEPAGE=https://github.com/stefanberger/swtpm
@@ -11,5 +11,5 @@ RDEPEND=fuse? ( dev-libs/glib:2 sys-fs/fuse:0 ) gnutls? ( dev-libs/libtasn1:= >=
 RESTRICT=!test? ( test )
 SLOT=0
 SRC_URI=https://github.com/stefanberger/swtpm/archive/v0.8.0.tar.gz -> swtpm-0.8.0.tar.gz
-_eclasses_=autotools	5223f703a2e9c194fcda924f8c4b6baf	eapi8-dosym	cd7d420bb5be5ee079f27239ce76b8f5	libtool	f143db5a74ccd9ca28c1234deffede96	multilib	d410501a125f99ffb560b0c523cd3d1e	multiprocessing	cac3169468f893670dac3e7cb940e045	python-any-r1	54a3178500786b0a7ede4a23b7f2a6ad	python-utils-r1	32393cac272daca4c136cc44e6005b67	toolchain-funcs	24921b57d6561d87cbef4916a296ada4
-_md5_=d852367b7349f5b79bfe89d2be3e5e59
+_eclasses_=autotools	5223f703a2e9c194fcda924f8c4b6baf	eapi8-dosym	cd7d420bb5be5ee079f27239ce76b8f5	libtool	f143db5a74ccd9ca28c1234deffede96	multilib	d410501a125f99ffb560b0c523cd3d1e	multiprocessing	cac3169468f893670dac3e7cb940e045	python-any-r1	54a3178500786b0a7ede4a23b7f2a6ad	python-utils-r1	32393cac272daca4c136cc44e6005b67	toolchain-funcs	24921b57d6561d87cbef4916a296ada4	user	875055ddd565382c728563992ae3abf7
+_md5_=249ddcd7d66548bee5b808259985323b
