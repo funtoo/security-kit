@@ -8,6 +8,6 @@ KEYWORDS=*
 LICENSE=GPL-2
 RDEPEND=dev-libs/nspr dev-libs/nss dev-libs/openssl:= dev-libs/popt sys-apps/util-linux >=sys-libs/efivar-38
 SLOT=0
-SRC_URI=https://github.com/rhboot/pesign/tarball/33f4d52f3c1d498315af092faeac85fda057e1ff -> pesign-115-33f4d52.tar.gz
+SRC_URI=https://github.com/rhboot/pesign/tarball/c8d7c76f1848d324ee3b72ca602d01b988e6238e -> pesign-116-c8d7c76.tar.gz
 _eclasses_=multilib	d410501a125f99ffb560b0c523cd3d1e	toolchain-funcs	24921b57d6561d87cbef4916a296ada4
-_md5_=a128752edb741e8f07b6e2ed46b03014
+_md5_=3b82953aa1f228e8377e02bf640aacab
