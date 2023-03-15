@@ -5,7 +5,7 @@ inherit desktop eutils pax-utils user xdg
 
 DESCRIPTION="1Password is a password manager developed by AgileBits Inc."
 HOMEPAGE="https://releases.1password.com/linux/8.10/"
-SRC_URI="https://downloads.1password.com/linux/tar/stable/x86_64/1password-8.10.1.x64.tar.gz -> onepassword-bin-8.10.1.tar.gz"
+SRC_URI="https://downloads.1password.com/linux/tar/stable/x86_64/1password-8.10.3.x64.tar.gz -> onepassword-bin-8.10.3.tar.gz"
 
 KEYWORDS="-* amd64"
 LICENSE="all-rights-reserved"
