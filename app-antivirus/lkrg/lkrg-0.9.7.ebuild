@@ -6,7 +6,7 @@ inherit linux-mod linux-info
 
 DESCRIPTION="Linux Kernel Runtime Guard"
 HOMEPAGE="https://lkrg.org"
-SRC_URI="https://lkrg.org/download/lkrg-0.9.6.tar.gz -> lkrg-0.9.6.tar.gz"
+SRC_URI="https://lkrg.org/download/lkrg-0.9.7.tar.gz -> lkrg-0.9.7.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
