@@ -21,6 +21,6 @@ KEYWORDS="*"
 
 post_src_unpack() {
 	if [ ! -d "${S}" ]; then
-		mv "${WORKDIR}"/klausman-lib_users* "$S" || die
+		mv "${WORKDIR}"/klausman-* "$S" || die
 	fi
 }
