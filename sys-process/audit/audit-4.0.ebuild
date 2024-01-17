@@ -8,7 +8,7 @@ inherit autotools multilib-minimal toolchain-funcs python-r1 linux-info systemd 
 
 DESCRIPTION="Userspace utilities for storing and processing auditing records"
 HOMEPAGE="https://people.redhat.com/sgrubb/audit/"
-SRC_URI="https://github.com/linux-audit/audit-userspace/tarball/572eb7d4fe926e7c1c52166d08e78af54877cbc5 -> audit-userspace-3.1.2-572eb7d.tar.gz"
+SRC_URI="https://github.com/linux-audit/audit-userspace/tarball/ae7d2830391c1115cebff6340ef3130b1b03ce45 -> audit-userspace-4.0-ae7d283.tar.gz"
 
 LICENSE="GPL-2+ LGPL-2.1+"
 SLOT="0"
