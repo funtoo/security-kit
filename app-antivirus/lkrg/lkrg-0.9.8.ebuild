@@ -6,11 +6,12 @@ inherit linux-mod linux-info
 
 DESCRIPTION="Linux Kernel Runtime Guard"
 HOMEPAGE="https://lkrg.org"
-SRC_URI="https://lkrg.org/download/lkrg-0.9.8.tar.gz -> lkrg-0.9.8.tar.gz"
+SRC_URI="https://github.com/lkrg-org/lkrg/tarball/34754960b9b7c913d34a9fd2e1c8341e28b00747 -> lkrg-0.9.8-3475496.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="*"
+S="${WORKDIR}/lkrg-org-lkrg-3475496"
 
 MODULE_NAMES="lkrg(misc:${S}:${S})"
 
@@ -30,9 +31,9 @@ src_unpack() {
 
 pkg_preinst() {
 	linux-mod_pkg_preinst
-	doinitd "${WORKDIR}"/${P}/scripts/bootup/openrc/lkrg
+	doinitd ${S}/scripts/bootup/openrc/lkrg
 	insinto /etc/sysctl.d
-	newins "${WORKDIR}"/${P}/scripts/bootup/lkrg.conf 01-lkrg.conf
+	newins  ${S}/scripts/bootup/lkrg.conf 01-lkrg.conf
 }
 
 pkg_postinst() {
