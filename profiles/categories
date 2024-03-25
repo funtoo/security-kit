@@ -5,6 +5,7 @@ app-forensics
 dev-libs
 mail-filter
 net-libs
+net-wireless
 sec-policy
 sys-apps
 sys-libs
